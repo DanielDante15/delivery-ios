@@ -8,11 +8,39 @@
 import SwiftUI
 
 struct ProductDetailView: View {
+    @State var productQuantity = 1
+
+    let product:ProductType
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            ProductDetailHeaderView(product: product)
+            Spacer()
+            ProductDetailQuantity(productQuantity: $productQuantity)
+            Spacer()
+            ProductDetailButtonView()
+        }
     }
 }
 
 #Preview {
-    ProductDetailView()
+    ProductDetailView(product: storesMock[0].products[0])
+}
+
+struct ProductDetailButtonView: View {
+    var body: some View {
+        Button(action: {}, label: {
+            HStack{
+                Image(systemName: "cart")
+                Text("Adicionar ao carrinho")
+            }
+            .padding(.horizontal,32)
+            .padding(.vertical,16)
+            .font(.title3)
+            .bold()
+            .background(Color("ColorRed"))
+            .foregroundStyle(.white)
+            .clipShape(.buttonBorder)
+            .shadow(color: Color("ColorRedDark").opacity(0.5),radius: 10,x: 6,y: 8)
+        })
+    }
 }
